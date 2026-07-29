@@ -193,23 +193,6 @@
       }
     }
   </style>
-  <!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1629957334756603');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1629957334756603&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
 </head>
 <body>
   <div class="container">
@@ -237,7 +220,7 @@ src="https://www.facebook.com/tr?id=1629957334756603&ev=PageView&noscript=1"
     </div>
 
     <!-- Botão WhatsApp -->
-    <a href="https://chat.whatsapp.com/IZEM7suRRhm4O8NBkvHG0u" class="btn btn-whatsapp">
+    <a href="https://chat.whatsapp.com/IZEM7suRRhm4O8NBkvHG0u" id="btnWhatsapp" class="btn btn-whatsapp">
       <svg class="btn-icon" viewBox="0 0 24 24">
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
       </svg>
@@ -255,5 +238,80 @@ src="https://www.facebook.com/tr?id=1629957334756603&ev=PageView&noscript=1"
     <!-- Texto de confiança -->
     <p class="trust-text">só produtos originais e lojas confiáveis! 🔒</p>
   </div>
+
+  <!-- CAPI (Conversions API) - registra o Lead ao clicar em ENTRAR NO GRUPO DO WHATSAPP -->
+  <script>
+  (function () {
+    var PIXEL_ID = '3670824509722564';
+    var ACCESS_TOKEN = 'EAAxUcUgxpxQBSKKWyZBxNjcox0s5Hsbxt6idbcZBcZCEqNKrJVJUKr3ZCWZAeQxx4k79Qk21ctjdBeE2IoCeyqpjuFiWIykizkphXBl1A2hMDFKStptKmXgFIpQ3PqqoCs2adXCRxkymfmoJvmcixGrSkuJztUG2gzV1HeZBxzUJCgcoE8Udsm4X3cTVS3tgZDZD';
+    var CAPI_URL = 'https://graph.facebook.com/v19.0/' + PIXEL_ID + '/events?access_token=' + ACCESS_TOKEN;
+
+    function getCookie(name) {
+      var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      return match ? match[2] : null;
+    }
+
+    function uuid() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+
+    async function hashSHA256(value) {
+      if (!value || !window.crypto || !window.crypto.subtle) return null;
+      var data = new TextEncoder().encode(value.trim().toLowerCase());
+      var hashBuffer = await window.crypto.subtle.digest('SHA-256', data);
+      return Array.from(new Uint8Array(hashBuffer)).map(function (b) {
+        return b.toString(16).padStart(2, '0');
+      }).join('');
+    }
+
+    async function sendLeadEvent() {
+      var eventId = uuid();
+      var eventTime = Math.floor(Date.now() / 1000);
+      var fbp = getCookie('_fbp');
+      var fbc = getCookie('_fbc');
+
+      // Dispara o Pixel (browser) com o MESMO event_id para deduplicar com o CAPI
+      if (window.fbq) {
+        fbq('track', 'Lead', {}, { eventID: eventId });
+      }
+
+      var userData = {
+        client_user_agent: navigator.userAgent
+      };
+      if (fbp) userData.fbp = fbp;
+      if (fbc) userData.fbc = fbc;
+
+      var payload = {
+        data: [{
+          event_name: 'Lead',
+          event_time: eventTime,
+          event_id: eventId,
+          event_source_url: window.location.href,
+          action_source: 'website',
+          user_data: userData
+        }]
+      };
+
+      try {
+        await fetch(CAPI_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          keepalive: true,
+          body: JSON.stringify(payload)
+        });
+      } catch (e) {
+        // Falha silenciosa: não deve travar a navegação do usuário para o WhatsApp
+        console.error('Erro ao enviar evento CAPI:', e);
+      }
+    }
+
+    document.getElementById('btnWhatsapp').addEventListener('click', function () {
+      sendLeadEvent();
+    });
+  })();
+  </script>
 </body>
 </html>

@@ -228,7 +228,7 @@
     </a>
 
     <!-- Botão Telegram -->
-    <a href="https://t.me/+8023jk-PrvdjZDQ5" class="btn btn-telegram">
+    <a href="https://t.me/+8023jk-PrvdjZDQ5" id="btnTelegram" class="btn btn-telegram">
       <svg class="btn-icon" viewBox="0 0 24 24">
         <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
       </svg>
@@ -239,7 +239,7 @@
     <p class="trust-text">só produtos originais e lojas confiáveis! 🔒</p>
   </div>
 
-  <!-- CAPI (Conversions API) - registra o Lead ao clicar em ENTRAR NO GRUPO DO WHATSAPP -->
+  <!-- CAPI (Conversions API) - registra o Lead ao clicar em ENTRAR NO GRUPO DO WHATSAPP/TELEGRAM -->
   <script>
   (function () {
     var PIXEL_ID = '3670824509722564';
@@ -258,29 +258,26 @@
       });
     }
 
-    async function hashSHA256(value) {
-      if (!value || !window.crypto || !window.crypto.subtle) return null;
-      var data = new TextEncoder().encode(value.trim().toLowerCase());
-      var hashBuffer = await window.crypto.subtle.digest('SHA-256', data);
-      return Array.from(new Uint8Array(hashBuffer)).map(function (b) {
-        return b.toString(16).padStart(2, '0');
-      }).join('');
-    }
+    async function sendLeadEvent(source) {
+      // Evita contar o mesmo visitante várias vezes se ele clicar repetidamente
+      var storageKey = 'lead_sent_' + source;
+      try {
+        if (sessionStorage.getItem(storageKey)) {
+          return;
+        }
+        sessionStorage.setItem(storageKey, '1');
+      } catch (e) {}
 
-    async function sendLeadEvent() {
       var eventId = uuid();
       var eventTime = Math.floor(Date.now() / 1000);
       var fbp = getCookie('_fbp');
       var fbc = getCookie('_fbc');
 
-      // Dispara o Pixel (browser) com o MESMO event_id para deduplicar com o CAPI
       if (window.fbq) {
-        fbq('track', 'Lead', {}, { eventID: eventId });
+        fbq('track', 'Lead', { content_name: source }, { eventID: eventId });
       }
 
-      var userData = {
-        client_user_agent: navigator.userAgent
-      };
+      var userData = { client_user_agent: navigator.userAgent };
       if (fbp) userData.fbp = fbp;
       if (fbc) userData.fbc = fbc;
 
@@ -291,7 +288,8 @@
           event_id: eventId,
           event_source_url: window.location.href,
           action_source: 'website',
-          user_data: userData
+          user_data: userData,
+          custom_data: { content_name: source }
         }]
       };
 
@@ -303,13 +301,16 @@
           body: JSON.stringify(payload)
         });
       } catch (e) {
-        // Falha silenciosa: não deve travar a navegação do usuário para o WhatsApp
         console.error('Erro ao enviar evento CAPI:', e);
       }
     }
 
     document.getElementById('btnWhatsapp').addEventListener('click', function () {
-      sendLeadEvent();
+      sendLeadEvent('whatsapp');
+    });
+
+    document.getElementById('btnTelegram').addEventListener('click', function () {
+      sendLeadEvent('telegram');
     });
   })();
   </script>

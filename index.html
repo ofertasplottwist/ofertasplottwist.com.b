@@ -239,12 +239,16 @@
     <p class="trust-text">só produtos originais e lojas confiáveis! 🔒</p>
   </div>
 
-  <!-- CAPI (Conversions API) - registra o Lead ao clicar em ENTRAR NO GRUPO DO WHATSAPP/TELEGRAM -->
+  <!-- CAPI (Conversions API) - registra APENAS 1 Lead por visitante, seja no clique do WhatsApp OU do Telegram -->
   <script>
   (function () {
     var PIXEL_ID = '3670824509722564';
     var ACCESS_TOKEN = 'EAAxUcUgxpxQBSKKWyZBxNjcox0s5Hsbxt6idbcZBcZCEqNKrJVJUKr3ZCWZAeQxx4k79Qk21ctjdBeE2IoCeyqpjuFiWIykizkphXBl1A2hMDFKStptKmXgFIpQ3PqqoCs2adXCRxkymfmoJvmcixGrSkuJztUG2gzV1HeZBxzUJCgcoE8Udsm4X3cTVS3tgZDZD';
     var CAPI_URL = 'https://graph.facebook.com/v19.0/' + PIXEL_ID + '/events?access_token=' + ACCESS_TOKEN;
+
+    // Chave ÚNICA compartilhada entre WhatsApp e Telegram — garante 1 Lead por visitante no total,
+    // não importa qual botão (ou os dois) ele clique.
+    var STORAGE_KEY = 'lead_sent';
 
     function getCookie(name) {
       var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
@@ -258,15 +262,26 @@
       });
     }
 
-    async function sendLeadEvent(source) {
-      // Evita contar o mesmo visitante várias vezes se ele clicar repetidamente
-      var storageKey = 'lead_sent_' + source;
+    function alreadySent() {
       try {
-        if (sessionStorage.getItem(storageKey)) {
-          return;
-        }
-        sessionStorage.setItem(storageKey, '1');
+        return sessionStorage.getItem(STORAGE_KEY) === '1';
+      } catch (e) {
+        return false;
+      }
+    }
+
+    function markSent() {
+      try {
+        sessionStorage.setItem(STORAGE_KEY, '1');
       } catch (e) {}
+    }
+
+    async function sendLeadEvent(source) {
+      // Se já foi enviado um Lead nesta sessão (por qualquer um dos botões), não envia de novo
+      if (alreadySent()) {
+        return;
+      }
+      markSent();
 
       var eventId = uuid();
       var eventTime = Math.floor(Date.now() / 1000);

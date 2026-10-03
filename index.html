@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ofertas Plottwist – As melhores ofertas direto no seu celular</title>
+<link rel="icon" type="image/png" sizes="48x48" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<meta name="theme-color" content="#020d14">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;800&display=swap" rel="stylesheet">
@@ -18,13 +21,7 @@
   body{
     font-family:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
     color:var(--texto);
-    background:
-      radial-gradient(60% 520px at 0% 1500px, rgba(230,160,0,.55), transparent 70%),
-      radial-gradient(60% 520px at 100% 1500px, rgba(0,110,220,.55), transparent 70%),
-      radial-gradient(50% 600px at 0% 2300px, rgba(230,160,0,.30), transparent 70%),
-      radial-gradient(50% 600px at 100% 2300px, rgba(0,110,220,.30), transparent 70%),
-      var(--bg);
-    background-repeat:no-repeat;
+    background:var(--bg);
   }
   .pagina{max-width:540px;margin:0 auto;padding-bottom:48px}
   .topo{display:block;width:100%;height:auto}
@@ -72,6 +69,8 @@
   .selo b{display:block;font-size:clamp(14px,4.4vw,20px);font-weight:800;color:#fff}
   .selo span{display:block;font-size:clamp(8px,2.3vw,11px);font-weight:600;color:#cfd8de}
   .selo.verde svg{color:var(--verde)}
+  .selo:first-child{flex:1.25}
+  .selo:first-child span{white-space:nowrap}
 
   .seguro{
     display:flex;align-items:center;gap:12px;margin:28px 5% 0;
@@ -124,10 +123,16 @@
     .btn{height:64px;gap:10px;padding:0 16px 0 12px}
     .btn .icone{flex-basis:44px;height:44px}
     .btn-whats .icone{flex-basis:56px}
+    .btn .texto{white-space:nowrap;font-size:min(4.3vw,18px);letter-spacing:0}
+    .seguro{gap:8px;letter-spacing:.6px;font-size:2.5vw;white-space:nowrap}
+    .seguro::before,.seguro::after{min-width:10px}
     .selos{padding:10px 8px}
     .selo svg{width:24px;height:24px;flex-basis:24px}
     .mensagens{padding:14px 6%}
     .encaminhar{right:-34px}
+  }
+  @media (max-width:340px){
+    .btn .texto{font-size:3.9vw}
   }
   @media (prefers-reduced-motion:reduce){.btn-whats{animation:none}}
 </style>
@@ -136,7 +141,7 @@
 <main class="pagina">
 
   <!-- Topo: logo + produtos + título (imagem) -->
-  <img class="topo" src="img/topo.jpg" width="1080" height="1190" alt="Ofertas Plottwist – as melhores ofertas direto no seu celular">
+  <img class="topo" src="topo.jpg" width="1080" height="1190" alt="Ofertas Plottwist – as melhores ofertas direto no seu celular">
 
   <!-- Botões (únicos elementos clicáveis) -->
   <div class="botoes">
@@ -187,7 +192,7 @@
   <section class="chat" aria-label="Prévia do grupo de ofertas">
     <div class="chat-topo">
       <svg class="voltar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H5M11 5l-7 7 7 7"/></svg>
-      <img src="img/avatar.jpg" alt="">
+      <img src="avatar.jpg" alt="">
       <div class="nome"><b>🔥 Ofertas Plottwist #10</b><span>10,2 mil membros</span></div>
       <div class="acoes" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="m15 10 6-3v10l-6-3"/></svg>
@@ -198,7 +203,7 @@
     <div class="mensagens">
       <article class="msg">
         <span class="adm">ADM Plottwist</span>
-        <img src="img/iphone15.jpg" width="538" height="489" alt="Apple iPhone 15 128 GB" loading="lazy">
+        <img src="iphone15.jpg" width="538" height="489" alt="Apple iPhone 15 128 GB" loading="lazy">
         <div class="info">
           <h3>Apple iPhone 15 (128 GB)</h3>
           <div class="de">de R$ <s>7.309,00</s></div>
@@ -211,7 +216,7 @@
 
       <article class="msg">
         <span class="adm">ADM Plottwist</span>
-        <img src="img/nike-air-max.jpg" width="538" height="481" alt="Tênis Nike Air Max Nuaxis Masculino" loading="lazy">
+        <img src="nike-air-max.jpg" width="538" height="481" alt="Tênis Nike Air Max Nuaxis Masculino" loading="lazy">
         <div class="info">
           <h3>Tênis Nike Air Max Nuaxis Masculino</h3>
           <div class="de">de R$ <s>599,99</s></div>

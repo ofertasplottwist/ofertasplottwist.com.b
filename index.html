@@ -1,333 +1,229 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ofertas Plottwist - As Melhores Promoções</title>
-  <link rel="icon" href="/favicon.png" type="image/png">
-  <meta name="description" content="As melhores promoções 100% gratuito. Só produtos originais e lojas confiáveis!">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <!-- Meta Pixel Code -->
-  <script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '3670824509722564');
-  fbq('track', 'PageView');
-  </script>
-  <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=3670824509722564&ev=PageView&noscript=1"
-  /></noscript>
-  <!-- End Meta Pixel Code -->
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ofertas Plottwist – As melhores ofertas direto no seu celular</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#020d14;
+    --verde:#19d44f; --verde-esc:#0aa83a;
+    --azul:#22a3ff; --azul-esc:#0a6be0;
+    --texto:#e9edef; --suave:#8696a0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    color:var(--texto);
+    background:
+      radial-gradient(60% 520px at 0% 1500px, rgba(230,160,0,.55), transparent 70%),
+      radial-gradient(60% 520px at 100% 1500px, rgba(0,110,220,.55), transparent 70%),
+      radial-gradient(50% 600px at 0% 2300px, rgba(230,160,0,.30), transparent 70%),
+      radial-gradient(50% 600px at 100% 2300px, rgba(0,110,220,.30), transparent 70%),
+      var(--bg);
+    background-repeat:no-repeat;
+  }
+  .pagina{max-width:540px;margin:0 auto;padding-bottom:48px}
+  .topo{display:block;width:100%;height:auto}
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #151921;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 48px 16px;
-    }
+  /* Botões */
+  .botoes{display:grid;gap:16px;padding:0 4.5%;margin-top:-6px}
+  .btn{
+    display:flex;align-items:center;gap:14px;
+    height:76px;padding:0 22px 0 16px;border-radius:999px;
+    color:#fff;text-decoration:none;font-weight:800;
+    font-size:clamp(17px,5vw,25px);letter-spacing:.2px;
+    border:2px solid rgba(255,255,255,.35);
+    text-shadow:0 2px 3px rgba(0,0,0,.25);
+  }
+  .btn .icone{flex:0 0 52px;height:52px;display:grid;place-items:center}
+  .btn .icone svg{width:100%;height:100%}
+  .btn .texto{flex:1;text-align:center}
+  .btn .seta{width:26px;height:26px;flex:0 0 26px}
+  .btn:focus-visible{outline:3px solid #fff;outline-offset:4px}
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      max-width: 448px;
-      width: 100%;
-    }
+  .btn-whats{
+    background:linear-gradient(180deg,#34e868 0%,var(--verde) 45%,var(--verde-esc) 100%);
+    box-shadow:0 0 18px rgba(25,212,79,.55), 0 6px 0 #087a2b, 0 10px 22px rgba(0,0,0,.45);
+    animation:pulsar 2.6s ease-in-out infinite;
+  }
+  .btn-whats .icone{border-right:1px solid rgba(255,255,255,.35);padding-right:14px;flex-basis:66px}
+  .btn-tele{
+    background:linear-gradient(180deg,#43b4ff 0%,var(--azul) 45%,var(--azul-esc) 100%);
+    box-shadow:0 6px 0 #0850a8, 0 10px 22px rgba(0,0,0,.45);
+  }
+  @keyframes pulsar{
+    0%,100%{transform:scale(1);box-shadow:0 0 14px rgba(25,212,79,.45),0 6px 0 #087a2b,0 10px 22px rgba(0,0,0,.45)}
+    50%{transform:scale(1.025);box-shadow:0 0 30px rgba(25,212,79,.85),0 6px 0 #087a2b,0 10px 22px rgba(0,0,0,.45)}
+  }
 
-    .avatar-wrapper {
-      position: relative;
-      margin-bottom: 24px;
-    }
+  /* Selos */
+  .selos{
+    display:flex;align-items:center;justify-content:space-between;gap:6px;
+    margin:36px auto 0;width:88%;padding:12px 14px;border-radius:999px;
+    background:rgba(8,22,34,.85);border:1px solid rgba(120,160,190,.3);
+  }
+  .selo{display:flex;align-items:center;gap:8px;flex:1;justify-content:center;line-height:1.15}
+  .selo + .selo{border-left:1px solid rgba(255,255,255,.18)}
+  .selo svg{width:30px;height:30px;flex:0 0 30px}
+  .selo b{display:block;font-size:clamp(14px,4.4vw,20px);font-weight:800;color:#fff}
+  .selo span{display:block;font-size:clamp(8px,2.3vw,11px);font-weight:600;color:#cfd8de}
+  .selo.verde svg{color:var(--verde)}
 
-    .avatar {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 4px solid #22c55e;
-    }
+  .seguro{
+    display:flex;align-items:center;gap:12px;margin:28px 5% 0;
+    font-size:clamp(9px,2.6vw,12px);font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:#cfd8de;
+  }
+  .seguro::before,.seguro::after{content:"";flex:1;height:1px;background:rgba(40,190,200,.55)}
+  .seguro svg{width:20px;height:20px;color:#cfd8de}
 
-    .avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+  .espia{
+    display:table;margin:44px auto 0;padding:10px 22px;border-radius:999px;
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.18);
+    font-size:clamp(16px,5vw,24px);font-weight:500;color:#d5dde2;
+  }
 
-    .online-indicator {
-      position: absolute;
-      bottom: 8px;
-      right: 8px;
-      width: 20px;
-      height: 20px;
-      background-color: #22c55e;
-      border-radius: 50%;
-      border: 4px solid #151921;
-    }
+  /* Conversa estilo WhatsApp */
+  .chat{
+    width:84%;margin:32px auto 0;border-radius:18px 18px 0 0;overflow:hidden;
+    background:#0b141a;box-shadow:0 10px 40px rgba(0,0,0,.5);
+  }
+  .chat-topo{display:flex;align-items:center;gap:10px;padding:14px 14px;background:#111b21;color:#e9edef}
+  .chat-topo .voltar{width:22px;height:22px;flex:0 0 22px}
+  .chat-topo img{width:42px;height:42px;border-radius:50%;object-fit:cover;flex:0 0 42px}
+  .chat-topo .nome{flex:1;min-width:0;line-height:1.25}
+  .chat-topo .nome b{display:block;font-size:clamp(13px,3.9vw,17px);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .chat-topo .nome span{font-size:clamp(11px,3vw,13px);color:var(--suave)}
+  .chat-topo .acoes{display:flex;align-items:center;gap:10px;color:#e9edef}
+  .chat-topo .acoes svg{width:22px;height:22px}
+  .mensagens{display:grid;gap:12px;padding:14px 9%;}
+  .msg{position:relative;background:#1f2c34;border-radius:12px;padding:8px 8px 10px;font-size:clamp(12px,3.6vw,16px)}
+  .msg .adm{display:block;color:#e8579f;font-weight:600;padding:2px 6px 8px}
+  .msg img{display:block;width:100%;height:auto;border-radius:8px}
+  .msg .info{padding:12px 6px 0;line-height:1.5}
+  .msg h3{font-size:1.02em;font-weight:600;color:#fff;margin-bottom:8px}
+  .msg .de{font-size:.88em;color:#cfd8de}
+  .msg .de s,.msg .por a{color:#2fd070;text-decoration:underline;text-decoration-color:#2fd070}
+  .msg .de s{text-decoration:line-through;text-decoration-color:#cfd8de}
+  .msg .por{font-weight:600;color:#fff}
+  .msg .por a{pointer-events:none}
+  .cupom{display:inline-block;margin-top:10px;font-size:.92em;color:#e9edef}
+  .cupom em{font-style:normal;background:rgba(255,255,255,.1);padding:3px 8px;border-radius:6px;margin-left:4px}
+  .frete{display:block;margin-top:6px;color:#cfd8de;font-size:.92em;text-align:center}
+  .hora{display:block;text-align:right;font-size:.72em;color:var(--suave);padding:2px 4px 0}
+  .encaminhar{
+    position:absolute;right:-42px;bottom:42%;width:30px;height:30px;border-radius:50%;
+    background:rgba(11,20,26,.8);display:grid;place-items:center;color:#cfd8de
+  }
+  .encaminhar svg{width:16px;height:16px}
 
-    .title {
-      color: white;
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      margin-bottom: 8px;
-    }
-
-    .subtitle {
-      color: #9ca3af;
-      font-size: 18px;
-      margin-bottom: 4px;
-    }
-
-    .subtitle strong {
-      font-weight: 700;
-    }
-
-    .free-text {
-      color: #22c55e;
-      font-weight: 700;
-      font-size: 18px;
-      margin-bottom: 16px;
-    }
-
-    .members-badge {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background-color: #2a2f3a;
-      border-radius: 9999px;
-      padding: 8px 16px;
-      margin-bottom: 24px;
-    }
-
-    .members-dot {
-      width: 12px;
-      height: 12px;
-      background-color: #22c55e;
-      border-radius: 50%;
-    }
-
-    .members-text {
-      color: white;
-      font-size: 14px;
-    }
-
-    .btn {
-      width: 100%;
-      max-width: 384px;
-      border-radius: 9999px;
-      padding: 16px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn-whatsapp {
-      background-color: #25D366;
-      margin-bottom: 16px;
-      box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
-      animation: pulse-subtle 2s ease-in-out infinite;
-    }
-
-    .btn-whatsapp:hover {
-      background-color: #20bd5a;
-    }
-
-    .btn-telegram {
-      background-color: #2AABEE;
-      margin-bottom: 24px;
-    }
-
-    .btn-telegram:hover {
-      background-color: #229ed9;
-    }
-
-    .btn-text {
-      color: white;
-      font-weight: 700;
-      font-size: 14px;
-      letter-spacing: 0.05em;
-    }
-
-    .btn-icon {
-      width: 24px;
-      height: 24px;
-      fill: white;
-    }
-
-    .trust-text {
-      color: #6b7280;
-      font-size: 14px;
-    }
-
-    @keyframes pulse-subtle {
-      0%, 100% {
-        transform: scale(1);
-        box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
-      }
-      50% {
-        transform: scale(1.02);
-        box-shadow: 0 0 25px rgba(37, 211, 102, 0.6);
-      }
-    }
-  </style>
+  @media (max-width:420px){
+    .btn{height:64px;gap:10px;padding:0 16px 0 12px}
+    .btn .icone{flex-basis:44px;height:44px}
+    .btn-whats .icone{flex-basis:56px}
+    .selos{padding:10px 8px}
+    .selo svg{width:24px;height:24px;flex-basis:24px}
+    .mensagens{padding:14px 6%}
+    .encaminhar{right:-34px}
+  }
+  @media (prefers-reduced-motion:reduce){.btn-whats{animation:none}}
+</style>
 </head>
 <body>
-  <div class="container">
-    <!-- Avatar com indicador online -->
-    <div class="avatar-wrapper">
-      <div class="avatar">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/PROJETO%20FOTO%20NOVA%202%20-%20NOME%20NOVO%20-%20OFERTAS%20PLOTTWIST%202026%20fundo%20OK-wjxmC07MW6nYsN8kOyFVK8TUCcsemi.jpg" alt="Ofertas Plottwist">
-      </div>
-      <div class="online-indicator"></div>
-    </div>
+<main class="pagina">
 
-    <!-- Título -->
-    <h1 class="title">OFERTAS PLOTTWIST</h1>
+  <!-- Topo: logo + produtos + título (imagem) -->
+  <img class="topo" src="img/topo.jpg" width="1080" height="1190" alt="Ofertas Plottwist – as melhores ofertas direto no seu celular">
 
-    <!-- Subtítulo -->
-    <p class="subtitle">as <strong>MELHORES</strong> promoções 🔥</p>
-
-    <!-- 100% Gratuito -->
-    <p class="free-text">100% GRATUITO</p>
-
-    <!-- Badge de membros -->
-    <div class="members-badge">
-      <div class="members-dot"></div>
-      <span class="members-text">+10.000 membros</span>
-    </div>
-
-    <!-- Botão WhatsApp -->
-    <a href="https://chat.whatsapp.com/IZEM7suRRhm4O8NBkvHG0u" id="btnWhatsapp" class="btn btn-whatsapp">
-      <svg class="btn-icon" viewBox="0 0 24 24">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-      </svg>
-      <span class="btn-text">ENTRAR NO GRUPO DO WHATSAPP</span>
+  <!-- Botões (únicos elementos clicáveis) -->
+  <div class="botoes">
+    <a class="btn btn-whats" href="https://chat.whatsapp.com/SEU-LINK-AQUI" target="_blank" rel="noopener">
+      <span class="icone">
+        <svg viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+          <path d="M16 3.5a12.4 12.4 0 0 0-10.6 18.8L3.5 28.5l6.4-1.8A12.4 12.4 0 1 0 16 3.5z"/>
+          <path fill="#fff" stroke="none" d="M12 9.8c-.4-.9-.8-.9-1.2-.9-.3 0-.6 0-1 .4-.4.4-1.3 1.3-1.3 3.1s1.4 3.6 1.5 3.8c.2.3 2.6 4.1 6.4 5.600 3.100 1.200 3.700.9 4.400.9.700-.1 2.200-.9 2.500-1.800.3-.9.3-1.600.2-1.800-.1-.2-.4-.3-.8-.5s-2.200-1.100-2.500-1.200c-.3-.1-.6-.2-.8.200-.2.400-1 1.200-1.200 1.400-.2.200-.4.300-.8.100-.4-.2-1.600-.6-3-1.900-1.100-1-1.900-2.200-2.100-2.600-.2-.4 0-.6.200-.8l.6-.7c.2-.2.200-.4.400-.6.100-.3.100-.5 0-.7z"/>
+        </svg>
+      </span>
+      <span class="texto">GRUPO DO WHATSAPP</span>
+      <svg class="seta" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7"/></svg>
     </a>
 
-    <!-- Botão Telegram -->
-    <a href="https://t.me/+8023jk-PrvdjZDQ5" id="btnTelegram" class="btn btn-telegram">
-      <svg class="btn-icon" viewBox="0 0 24 24">
-        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-      </svg>
-      <span class="btn-text">ENTRAR NO CANAL DO TELEGRAM</span>
+    <a class="btn btn-tele" href="https://t.me/SEU-CANAL-AQUI" target="_blank" rel="noopener">
+      <span class="icone">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23" fill="#fff"/><path fill="#1c9cf0" d="M10.800 23.300 34.600 14c1.100-.4 2.100.3 1.700 1.900l-4 19c-.3 1.300-1.100 1.600-2.200 1l-6-4.500-2.900 2.800c-.3.300-.6.600-1.200.600l.4-6.200 11.300-10.200c.5-.4-.1-.7-.8-.3L16.900 27.700l-6-1.900c-1.300-.4-1.300-1.300.3-2.500z"/></svg>
+      </span>
+      <span class="texto">CANAL DO TELEGRAM</span>
+      <svg class="seta" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7"/></svg>
     </a>
-
-    <!-- Texto de confiança -->
-    <p class="trust-text">só produtos originais de lojas confiáveis! 🔒</p>
   </div>
 
-  <!-- CAPI (Conversions API) - registra APENAS 1 Lead por visitante, seja no clique do WhatsApp OU do Telegram -->
-  <script>
-  (function () {
-    var PIXEL_ID = '3670824509722564';
-    var ACCESS_TOKEN = 'EAAxUcUgxpxQBSKKWyZBxNjcox0s5Hsbxt6idbcZBcZCEqNKrJVJUKr3ZCWZAeQxx4k79Qk21ctjdBeE2IoCeyqpjuFiWIykizkphXBl1A2hMDFKStptKmXgFIpQ3PqqoCs2adXCRxkymfmoJvmcixGrSkuJztUG2gzV1HeZBxzUJCgcoE8Udsm4X3cTVS3tgZDZD';
-    var CAPI_URL = 'https://graph.facebook.com/v19.0/' + PIXEL_ID + '/events?access_token=' + ACCESS_TOKEN;
+  <!-- Selos de confiança -->
+  <div class="selos">
+    <div class="selo verde">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="8" cy="8" r="3.2"/><circle cx="17" cy="9" r="2.6"/><path d="M2 19c0-3.300 2.700-5.500 6-5.500s6 2.200 6 5.500zM14.500 14.200c.8-.4 1.600-.6 2.500-.6 2.800 0 5 1.800 5 4.900h-6.200c0-1.700-.5-3.200-1.300-4.300z"/></svg>
+      <div><b>+10.000</b><span>MEMBROS ATIVOS</span></div>
+    </div>
+    <div class="selo verde">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 4 5.500v6c0 4.800 3.300 9.200 8 10.500 4.700-1.300 8-5.700 8-10.500v-6z"/><path d="m8.500 12 2.500 2.500 4.500-5" fill="none" stroke="#04202a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div><span>GRUPO CONFIÁVEL<br>E SEGURO</span></div>
+    </div>
+    <div class="selo verde">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 2 5 13.500h6L9.500 22 19 10h-6.200z"/></svg>
+      <div><span>OFERTAS<br>TODOS OS DIAS</span></div>
+    </div>
+  </div>
 
-    // Chave ÚNICA compartilhada entre WhatsApp e Telegram — garante 1 Lead por visitante no total,
-    // não importa qual botão (ou os dois) ele clique.
-    var STORAGE_KEY = 'lead_sent';
+  <p class="seguro">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2h1.500c.8 0 1.500.7 1.500 1.500v9c0 .8-.7 1.500-1.500 1.500h-13c-.8 0-1.500-.7-1.500-1.500v-9C3.500 10.700 4.200 10 5 10zm2 0h6V8a3 3 0 0 0-6 0z"/></svg>
+    <span>Só produtos originais de lojas confiáveis!</span>
+  </p>
 
-    function getCookie(name) {
-      var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-      return match ? match[2] : null;
-    }
+  <div class="espia">👀 Espia como é lá dentro</div>
 
-    function uuid() {
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-      });
-    }
+  <!-- Prévia do grupo -->
+  <section class="chat" aria-label="Prévia do grupo de ofertas">
+    <div class="chat-topo">
+      <svg class="voltar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H5M11 5l-7 7 7 7"/></svg>
+      <img src="img/avatar.jpg" alt="">
+      <div class="nome"><b>🔥 Ofertas Plottwist #10</b><span>10,2 mil membros</span></div>
+      <div class="acoes" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="m15 10 6-3v10l-6-3"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.800"/><circle cx="12" cy="12" r="1.800"/><circle cx="12" cy="19" r="1.800"/></svg>
+      </div>
+    </div>
 
-    function alreadySent() {
-      try {
-        return sessionStorage.getItem(STORAGE_KEY) === '1';
-      } catch (e) {
-        return false;
-      }
-    }
+    <div class="mensagens">
+      <article class="msg">
+        <span class="adm">ADM Plottwist</span>
+        <img src="img/iphone15.jpg" width="538" height="489" alt="Apple iPhone 15 128 GB" loading="lazy">
+        <div class="info">
+          <h3>Apple iPhone 15 (128 GB)</h3>
+          <div class="de">de R$ <s>7.309,00</s></div>
+          <div class="por">por R$ <a>3.758,00</a> (-49 OFF) 🔥</div>
+          <span class="cupom">🎟️ Cupom: <em>PAGUEMENOS</em></span>
+        </div>
+        <span class="hora">12:35</span>
+        <span class="encaminhar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4l7 6-7 6V12c-5 0-8 1.500-10 5 .5-5 3.500-9 10-9z"/></svg></span>
+      </article>
 
-    function markSent() {
-      try {
-        sessionStorage.setItem(STORAGE_KEY, '1');
-      } catch (e) {}
-    }
+      <article class="msg">
+        <span class="adm">ADM Plottwist</span>
+        <img src="img/nike-air-max.jpg" width="538" height="481" alt="Tênis Nike Air Max Nuaxis Masculino" loading="lazy">
+        <div class="info">
+          <h3>Tênis Nike Air Max Nuaxis Masculino</h3>
+          <div class="de">de R$ <s>599,99</s></div>
+          <div class="por">por R$ <a>339,98</a> (-43 OFF) 🔥</div>
+          <span class="frete">frete grátis</span>
+        </div>
+        <span class="hora">13:30</span>
+        <span class="encaminhar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4l7 6-7 6V12c-5 0-8 1.500-10 5 .5-5 3.500-9 10-9z"/></svg></span>
+      </article>
+    </div>
+  </section>
 
-    async function sendLeadEvent(source) {
-      // Se já foi enviado um Lead nesta sessão (por qualquer um dos botões), não envia de novo
-      if (alreadySent()) {
-        return;
-      }
-      markSent();
-
-      var eventId = uuid();
-      var eventTime = Math.floor(Date.now() / 1000);
-      var fbp = getCookie('_fbp');
-      var fbc = getCookie('_fbc');
-
-      if (window.fbq) {
-        fbq('track', 'Lead', { content_name: source }, { eventID: eventId });
-      }
-
-      var userData = { client_user_agent: navigator.userAgent };
-      if (fbp) userData.fbp = fbp;
-      if (fbc) userData.fbc = fbc;
-
-      var payload = {
-        data: [{
-          event_name: 'Lead',
-          event_time: eventTime,
-          event_id: eventId,
-          event_source_url: window.location.href,
-          action_source: 'website',
-          user_data: userData,
-          custom_data: { content_name: source }
-        }]
-      };
-
-      try {
-        await fetch(CAPI_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          keepalive: true,
-          body: JSON.stringify(payload)
-        });
-      } catch (e) {
-        console.error('Erro ao enviar evento CAPI:', e);
-      }
-    }
-
-    document.getElementById('btnWhatsapp').addEventListener('click', function () {
-      sendLeadEvent('whatsapp');
-    });
-
-    document.getElementById('btnTelegram').addEventListener('click', function () {
-      sendLeadEvent('telegram');
-    });
-  })();
-  </script>
+</main>
 </body>
 </html>

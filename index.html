@@ -44,6 +44,35 @@ setTimeout(function () {
   fbq('trackCustom', 'Engajado15s');
 }, 15000);
 
+// API de Conversões: envia o mesmo clique ao Worker da Cloudflare.
+// O token fica só na Cloudflare, nunca neste arquivo.
+// Depois de criar o Worker, troque o texto abaixo pelo endereço dele (https://...workers.dev).
+var CAPI_URL = 'https://capi-plottwist.rmc-calleja.workers.dev';
+
+function getCookie(name) {
+  var m = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+  return m ? decodeURIComponent(m[1]) : null;
+}
+
+function sendCapi(channel, eventId) {
+  if (CAPI_URL.indexOf('https://') !== 0) return;
+  try {
+    fetch(CAPI_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      keepalive: true,
+      headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+      body: JSON.stringify({
+        event_id: eventId,
+        channel: channel,
+        event_source_url: location.href,
+        fbp: getCookie('_fbp'),
+        fbc: getCookie('_fbc')
+      })
+    });
+  } catch (e) {}
+}
+
 // Clique nos botões de grupo = Lead
 // Os links precisam ter o atributo data-channel="whatsapp" ou "telegram"
 document.addEventListener('click', function (e) {
@@ -61,6 +90,8 @@ document.addEventListener('click', function (e) {
     content_category: channel,
     channel: channel
   }, { eventID: eventId });
+
+  sendCapi(channel, eventId);
 
   // Garante que o evento saia antes de abrir o WhatsApp/Telegram
   if (link.target !== '_blank') {

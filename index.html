@@ -2,16 +2,17 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ofertas Plottwist – As melhores ofertas direto no seu celular</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ofertas Plottwist – Achadinhos com desconto direto no seu WhatsApp</title>
+<meta name="description" content="Achadinhos da Amazon, Mercado Livre e Shopee com cupom, todos os dias, direto no seu WhatsApp. Grátis.">
 <link rel="icon" type="image/png" sizes="48x48" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
-<meta name="theme-color" content="#020d14">
+<meta name="theme-color" content="#FFC928">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&display=swap" rel="stylesheet">
 
-<!-- Meta Pixel Code -->
+<!-- ============ Meta Pixel + API de Conversões ============ -->
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -22,316 +23,359 @@ t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 
-// IDs dos pixels. Apague a linha de um deles se quiser usar só um.
-var PIXEL_IDS = [
-  '3670824509722564',
-  '1629957334756603'
-];
-
-PIXEL_IDS.forEach(function (id) { fbq('init', id); });
-
-// Um único PageView (dispara para todos os pixels acima)
+// Só o pixel atual (o antigo 1629957334756603 foi removido)
+fbq('init', '3670824509722564');
 fbq('track', 'PageView');
-
-// Visualização da página de conteúdo
 fbq('track', 'ViewContent', {
   content_name: 'Landing Ofertas Plottwist',
   content_category: 'Grupo de ofertas'
 });
+setTimeout(function () { fbq('trackCustom', 'Engajado15s'); }, 15000);
 
-// Visitante qualificado: ficou 15s na página
-setTimeout(function () {
-  fbq('trackCustom', 'Engajado15s');
-}, 15000);
-
-// API de Conversões: envia o mesmo clique ao Worker da Cloudflare.
-// O token fica só na Cloudflare, nunca neste arquivo.
-// Depois de criar o Worker, troque o texto abaixo pelo endereço dele (https://...workers.dev).
+// API de Conversões (Worker da Cloudflare). O token fica só na Cloudflare.
 var CAPI_URL = 'https://capi-plottwist.rmc-calleja.workers.dev';
 
 function getCookie(name) {
   var m = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
   return m ? decodeURIComponent(m[1]) : null;
 }
-
 function sendCapi(channel, eventId) {
   if (CAPI_URL.indexOf('https://') !== 0) return;
   try {
     fetch(CAPI_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      keepalive: true,
+      method: 'POST', mode: 'no-cors', keepalive: true,
       headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
       body: JSON.stringify({
-        event_id: eventId,
-        channel: channel,
+        event_id: eventId, channel: channel,
         event_source_url: location.href,
-        fbp: getCookie('_fbp'),
-        fbc: getCookie('_fbc')
+        fbp: getCookie('_fbp'), fbc: getCookie('_fbc')
       })
     });
   } catch (e) {}
 }
 
-// Clique nos botões de grupo = Lead
-// Os links precisam ter o atributo data-channel="whatsapp" ou "telegram"
+// Clique em qualquer link com data-channel = Lead (1 vez por canal, mesmo havendo vários botões)
+var leadEnviado = {};
 document.addEventListener('click', function (e) {
   var link = e.target.closest ? e.target.closest('a[data-channel]') : null;
-  if (!link || link.dataset.tracked === '1') return;
-
+  if (!link) return;
   var channel = link.getAttribute('data-channel');
-  var eventId = 'lead_' + channel + '_' + Date.now() + '_' +
-                Math.random().toString(36).slice(2, 8);
+  if (leadEnviado[channel]) return;
+  leadEnviado[channel] = true;
 
-  link.dataset.tracked = '1';
-
+  var eventId = 'lead_' + channel + '_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
   fbq('track', 'Lead', {
     content_name: 'Entrada no grupo ' + channel,
     content_category: channel,
     channel: channel
   }, { eventID: eventId });
-
   sendCapi(channel, eventId);
 
-  // Garante que o evento saia antes de abrir o WhatsApp/Telegram
   if (link.target !== '_blank') {
     e.preventDefault();
     setTimeout(function () { window.location.href = link.href; }, 300);
   }
 });
 </script>
-<noscript>
-  <img height="1" width="1" style="display:none" alt=""
-       src="https://www.facebook.com/tr?id=3670824509722564&ev=PageView&noscript=1"/>
-  <img height="1" width="1" style="display:none" alt=""
-       src="https://www.facebook.com/tr?id=1629957334756603&ev=PageView&noscript=1"/>
-</noscript>
-<!-- End Meta Pixel Code -->
+<noscript><img height="1" width="1" style="display:none" alt=""
+  src="https://www.facebook.com/tr?id=3670824509722564&ev=PageView&noscript=1"/></noscript>
+<!-- ============ Fim do Pixel ============ -->
 
 <style>
   :root{
-    --bg:#020d14;
-    --verde:#19d44f; --verde-esc:#0aa83a;
-    --azul:#22a3ff; --azul-esc:#0a6be0;
-    --texto:#e9edef; --suave:#8696a0;
+    --amarelo:#FFC928; --amarelo-2:#FFB800; --laranja:#FF7A00;
+    --tinta:#1A1208; --cinza:#6B6257; --fundo:#FFF8E6; --card:#FFFFFF;
+    --verde:#25D366; --verde-esc:#128C4A; --vermelho:#E53935; --azul:#229ED9;
+    --borda:#F1E4C3;
   }
   *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
   body{
-    font-family:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
-    color:var(--texto);
-    background:var(--bg);
+    font-family:'Poppins',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    color:var(--tinta);background:var(--fundo);line-height:1.4;
+    -webkit-font-smoothing:antialiased;
   }
-  .pagina{max-width:540px;margin:0 auto;padding-bottom:48px}
-  .topo{display:block;width:100%;height:auto}
+  .pagina{max-width:480px;margin:0 auto;background:var(--fundo);min-height:100vh;padding-bottom:110px}
+
+  /* Faixa de topo */
+  .faixa{
+    background:var(--tinta);color:#fff;font-size:12.5px;font-weight:700;
+    text-align:center;padding:8px 12px;letter-spacing:.3px;
+  }
+  .faixa b{color:var(--amarelo)}
+
+  /* Hero */
+  .hero{
+    position:relative;overflow:hidden;
+    background:
+      radial-gradient(120% 80% at 50% 0%, #FFE27A 0%, var(--amarelo) 45%, var(--amarelo-2) 100%);
+    padding:22px 20px 30px;border-radius:0 0 28px 28px;text-align:center;
+  }
+  .hero::before{ /* raios */
+    content:"";position:absolute;inset:-40%;
+    background:repeating-conic-gradient(from 0deg, rgba(255,255,255,.18) 0 8deg, transparent 8deg 22deg);
+    animation:girar 40s linear infinite;pointer-events:none;
+  }
+  @keyframes girar{to{transform:rotate(360deg)}}
+  .hero > *{position:relative}
+  .marca{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:16px}
+  .marca img{width:52px;height:52px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,.18)}
+  .marca span{font-weight:800;font-size:19px;letter-spacing:-.3px}
+  .selo-gratis{
+    display:inline-block;background:var(--vermelho);color:#fff;font-weight:800;font-size:12px;
+    padding:5px 12px;border-radius:999px;transform:rotate(-2deg);margin-bottom:12px;
+    box-shadow:0 3px 0 #9c1f1c;
+  }
+  h1{font-size:clamp(26px,7.6vw,34px);line-height:1.12;font-weight:800;letter-spacing:-.6px}
+  h1 mark{background:var(--tinta);color:var(--amarelo);padding:0 8px;border-radius:8px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+  .sub{margin:12px auto 20px;max-width:360px;font-size:15px;font-weight:500;color:#3A2E12}
 
   /* Botões */
-  .botoes{display:grid;gap:16px;padding:0 4.5%;margin-top:-6px}
-  .btn{
-    display:flex;align-items:center;gap:14px;
-    height:76px;padding:0 22px 0 16px;border-radius:999px;
-    color:#fff;text-decoration:none;font-weight:800;
-    font-size:clamp(17px,5vw,25px);letter-spacing:.2px;
-    border:2px solid rgba(255,255,255,.35);
-    text-shadow:0 2px 3px rgba(0,0,0,.25);
+  .cta{
+    display:flex;align-items:center;justify-content:center;gap:12px;width:100%;
+    min-height:66px;padding:14px 20px;border-radius:18px;text-decoration:none;
+    background:linear-gradient(180deg,#3BE07A 0%,var(--verde) 55%,#1DB954 100%);
+    color:#fff;font-weight:800;font-size:clamp(17px,5vw,20px);letter-spacing:.2px;
+    box-shadow:0 6px 0 var(--verde-esc),0 12px 24px rgba(18,140,74,.35);
+    animation:pulsar 2.4s ease-in-out infinite;
   }
-  .btn .icone{flex:0 0 52px;height:52px;display:grid;place-items:center}
-  .btn .icone svg{width:100%;height:100%}
-  .btn .texto{flex:1;text-align:center}
-  .btn .seta{width:26px;height:26px;flex:0 0 26px}
-  .btn:focus-visible{outline:3px solid #fff;outline-offset:4px}
+  .cta svg{width:30px;height:30px;flex:0 0 30px}
+  .cta:active{transform:translateY(4px);box-shadow:0 2px 0 var(--verde-esc)}
+  @keyframes pulsar{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+  .garantias{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 14px;margin-top:14px;font-size:12.5px;font-weight:700;color:#3A2E12}
+  .garantias span::before{content:"✓ ";color:var(--verde-esc)}
+  .alt-tele{display:inline-block;margin-top:12px;font-size:13px;font-weight:600;color:#3A2E12}
+  .alt-tele a{color:#0B6FA4;font-weight:800}
 
-  .btn-whats{
-    background:linear-gradient(180deg,#34e868 0%,var(--verde) 45%,var(--verde-esc) 100%);
-    box-shadow:0 0 18px rgba(25,212,79,.55), 0 6px 0 #087a2b, 0 10px 22px rgba(0,0,0,.45);
-    animation:pulsar 2.6s ease-in-out infinite;
-  }
-  .btn-whats .icone{border-right:1px solid rgba(255,255,255,.35);padding-right:14px;flex-basis:66px}
-  .btn-tele{
-    background:linear-gradient(180deg,#43b4ff 0%,var(--azul) 45%,var(--azul-esc) 100%);
-    box-shadow:0 6px 0 #0850a8, 0 10px 22px rgba(0,0,0,.45);
-  }
-  @keyframes pulsar{
-    0%,100%{transform:scale(1);box-shadow:0 0 14px rgba(25,212,79,.45),0 6px 0 #087a2b,0 10px 22px rgba(0,0,0,.45)}
-    50%{transform:scale(1.025);box-shadow:0 0 30px rgba(25,212,79,.85),0 6px 0 #087a2b,0 10px 22px rgba(0,0,0,.45)}
+  /* Lojas */
+  .lojas{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;padding:20px 16px 4px}
+  .loja{
+    font-size:12.5px;font-weight:800;padding:7px 12px;border-radius:999px;
+    background:#fff;border:1.5px solid var(--borda);
   }
 
-  /* Selos */
-  .selos{
-    display:flex;align-items:center;justify-content:space-between;gap:6px;
-    margin:36px auto 0;width:88%;padding:12px 14px;border-radius:999px;
-    background:rgba(8,22,34,.85);border:1px solid rgba(120,160,190,.3);
-  }
-  .selo{display:flex;align-items:center;gap:8px;flex:1;justify-content:center;line-height:1.15}
-  .selo + .selo{border-left:1px solid rgba(255,255,255,.18)}
-  .selo svg{width:30px;height:30px;flex:0 0 30px}
-  .selo b{display:block;font-size:clamp(14px,4.4vw,20px);font-weight:800;color:#fff}
-  .selo span{display:block;font-size:clamp(8px,2.3vw,11px);font-weight:600;color:#cfd8de}
-  .selo.verde svg{color:var(--verde)}
-  .selo:first-child{flex:1.25}
-  .selo:first-child span,.selo:first-child b{white-space:nowrap}
+  /* Seções */
+  section{padding:26px 16px 0}
+  .titulo{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .titulo h2{font-size:20px;font-weight:800;letter-spacing:-.3px}
+  .titulo small{font-size:12px;color:var(--cinza);font-weight:600}
 
-  .seguro{
-    display:flex;align-items:center;gap:12px;margin:28px 5% 0;
-    font-size:clamp(9px,2.6vw,12px);font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:#cfd8de;
+  /* Cards de achadinhos */
+  .vitrine{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .item{
+    position:relative;background:var(--card);border-radius:16px;overflow:hidden;
+    border:1.5px solid var(--borda);box-shadow:0 4px 14px rgba(120,80,0,.07);
+    display:flex;flex-direction:column;
   }
-  .seguro::before,.seguro::after{content:"";flex:1;height:1px;background:rgba(40,190,200,.55)}
-  .seguro svg{width:20px;height:20px;color:#cfd8de}
+  .item .foto{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;background:#fff}
+  .item .foto img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover}
+  .desc{
+    position:absolute;top:10px;left:10px;background:var(--vermelho);color:#fff;
+    font-weight:800;font-size:13px;padding:4px 8px;border-radius:8px;
+  }
+  .item .info{padding:10px 12px 12px;display:flex;flex-direction:column;gap:3px;flex:1}
+  .item h3{font-size:13px;font-weight:600;line-height:1.3;color:#2D2416;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .de{font-size:12px;color:var(--cinza);text-decoration:line-through}
+  .por{font-size:19px;font-weight:800;color:var(--tinta)}
+  .por small{font-size:12px;font-weight:700}
+  .tag{margin-top:auto;align-self:flex-start;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;background:#FFF1C7;color:#7A5500}
+  .aviso{font-size:11.5px;color:var(--cinza);margin-top:10px;text-align:center}
 
-  .espia{
-    display:table;margin:44px auto 0;padding:10px 22px;border-radius:999px;
-    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.18);
-    font-size:clamp(16px,5vw,24px);font-weight:500;color:#d5dde2;
+  /* Como funciona */
+  .passos{display:grid;gap:10px}
+  .passo{display:flex;align-items:center;gap:14px;background:#fff;border:1.5px solid var(--borda);border-radius:16px;padding:14px}
+  .passo i{
+    font-style:normal;flex:0 0 40px;height:40px;border-radius:12px;display:grid;place-items:center;
+    background:var(--amarelo);font-weight:800;font-size:18px;box-shadow:0 3px 0 var(--amarelo-2);
+  }
+  .passo b{display:block;font-size:15px}
+  .passo span{font-size:13px;color:var(--cinza)}
+
+  /* Espia como é lá dentro (estilo escuro, cards empilhados) */
+  .espia{margin:26px 12px 0;padding:28px 14px 30px;background:#1B1F24;color:#E8EAED;border-radius:24px;overflow:hidden}
+  .espia h2{text-align:center;font-size:24px;font-weight:800;letter-spacing:-.3px;line-height:1.2}
+  .espia h2 svg{width:20px;height:20px;vertical-align:-2px;margin-left:2px}
+  .espia .intro{text-align:center;font-size:14px;color:#9AA0A6;max-width:340px;margin:8px auto 22px;line-height:1.45}
+  .oferta{background:#262B31;border:1px solid #33393F;border-radius:14px;overflow:hidden;margin-bottom:18px}
+  .oferta:last-child{margin-bottom:0}
+  .oferta .img{position:relative;width:100%;aspect-ratio:4/3;background:#fff;overflow:hidden}
+  .oferta .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .oferta .txt{padding:16px 16px 18px}
+  .oferta h3{font-size:16px;font-weight:700;color:#fff;margin-bottom:10px}
+  .oferta .de{display:block;font-size:13px;color:#9AA0A6;text-decoration:none}
+  .oferta .de s{color:#9AA0A6}
+  .oferta .por{display:block;font-size:22px;font-weight:800;color:#fff;margin-top:2px}
+  .oferta .por b{color:#3DDC84}
+  .oferta .por small{font-size:13px;font-weight:700;color:#3DDC84;margin-left:4px}
+  .oferta .cupom{margin-top:12px;font-size:14px;color:#E8EAED}
+  .oferta .cupom code{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;font-weight:700;
+    background:#15181C;border:1px solid #3A4047;border-radius:6px;padding:3px 8px;margin-left:4px;letter-spacing:.5px;
   }
 
-  /* Conversa estilo WhatsApp */
-  .chat{
-    width:84%;margin:32px auto 0;border-radius:18px 18px 0 0;overflow:hidden;
-    background:#0b141a;box-shadow:0 10px 40px rgba(0,0,0,.5);
-  }
-  .chat-topo{display:flex;align-items:center;gap:10px;padding:14px 14px;background:#111b21;color:#e9edef}
-  .chat-topo .voltar{width:22px;height:22px;flex:0 0 22px}
-  .chat-topo img{width:42px;height:42px;border-radius:50%;object-fit:cover;flex:0 0 42px}
-  .chat-topo .nome{flex:1;min-width:0;line-height:1.25}
-  .chat-topo .nome b{display:block;font-size:clamp(13px,3.9vw,17px);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .chat-topo .nome span{font-size:clamp(11px,3vw,13px);color:var(--suave)}
-  .chat-topo .acoes{display:flex;align-items:center;gap:10px;color:#e9edef}
-  .chat-topo .acoes svg{width:22px;height:22px}
-  .mensagens{display:grid;gap:12px;padding:14px 9%;}
-  .msg{position:relative;background:#1f2c34;border-radius:12px;padding:8px 8px 10px;font-size:clamp(12px,3.6vw,16px)}
-  .msg .adm{display:block;color:#e8579f;font-weight:600;padding:2px 6px 8px}
-  .msg img{display:block;width:100%;height:auto;border-radius:8px}
-  .msg .info{padding:12px 6px 0;line-height:1.5}
-  .msg h3{font-size:1.02em;font-weight:600;color:#fff;margin-bottom:8px}
-  .msg .de{font-size:.88em;color:#cfd8de}
-  .msg .de s,.msg .por a{color:#2fd070;text-decoration:underline;text-decoration-color:#2fd070}
-  .msg .de s{text-decoration:line-through;text-decoration-color:#cfd8de}
-  .msg .por{font-weight:600;color:#fff}
-  .msg .por a{pointer-events:none}
-  .cupom{display:inline-block;margin-top:10px;font-size:.92em;color:#e9edef}
-  .cupom em{font-style:normal;background:rgba(255,255,255,.1);padding:3px 8px;border-radius:6px;margin-left:4px}
-  .frete{display:block;margin-top:6px;color:#cfd8de;font-size:.92em;text-align:center}
-  .hora{display:block;text-align:right;font-size:.72em;color:var(--suave);padding:2px 4px 0}
-  .encaminhar{
-    position:absolute;right:-42px;bottom:42%;width:30px;height:30px;border-radius:50%;
-    background:rgba(11,20,26,.8);display:grid;place-items:center;color:#cfd8de
-  }
-  .encaminhar svg{width:16px;height:16px}
+  /* FAQ */
+  details{background:#fff;border:1.5px solid var(--borda);border-radius:14px;padding:14px 16px;margin-bottom:10px}
+  summary{cursor:pointer;font-weight:700;font-size:15px;list-style:none;display:flex;justify-content:space-between;gap:10px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-weight:800;font-size:20px;line-height:1;color:var(--laranja)}
+  details[open] summary::after{content:"–"}
+  details p{margin-top:8px;font-size:14px;color:#4A4033}
 
-  .aviso-precos{width:84%;margin:14px auto 0;font-size:13px;line-height:1.5;color:var(--suave);text-align:center}
+  .final{margin:28px 16px 0;padding:24px 18px;border-radius:22px;text-align:center;background:var(--tinta);color:#fff}
+  .final h2{font-size:22px;font-weight:800;line-height:1.2;margin-bottom:6px}
+  .final h2 span{color:var(--amarelo)}
+  .final p{font-size:14px;color:#D9CFBF;margin-bottom:16px}
 
-  @media (max-width:420px){
-    .btn{height:64px;gap:10px;padding:0 16px 0 12px}
-    .btn .icone{flex-basis:44px;height:44px}
-    .btn-whats .icone{flex-basis:56px}
-    .btn .texto{white-space:nowrap;font-size:min(4.3vw,18px);letter-spacing:0}
-    .seguro{gap:8px;letter-spacing:.6px;font-size:2.5vw;white-space:nowrap}
-    .seguro::before,.seguro::after{min-width:10px}
-    .selos{padding:10px 8px}
-    .selo svg{width:24px;height:24px;flex-basis:24px}
-    .mensagens{padding:14px 6%}
-    .encaminhar{right:-34px}
+  footer{text-align:center;font-size:11.5px;color:var(--cinza);padding:26px 20px 0}
+
+  /* Barra fixa no rodapé (aparece quando o botão principal sai da tela) */
+  .fixo{
+    position:fixed;left:0;right:0;bottom:0;z-index:20;
+    padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+    background:rgba(255,248,230,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    border-top:1.5px solid var(--borda);
+    transform:translateY(110%);transition:transform .3s ease;
   }
-  @media (max-width:340px){
-    .btn .texto{font-size:3.9vw}
-    .seguro{letter-spacing:0}
-    .selos{width:92%;padding:10px 6px}
-  }
-  @media (prefers-reduced-motion:reduce){.btn-whats{animation:none}}
+  .fixo.on{transform:none}
+  .fixo .cta{max-width:452px;margin:0 auto;min-height:56px;font-size:17px;animation:none}
+
+  @media (prefers-reduced-motion:reduce){.hero::before,.cta{animation:none}}
 </style>
 </head>
 <body>
-<main class="pagina">
+<div class="pagina">
 
-  <!-- Topo: logo + produtos + título (imagem) -->
-  <img class="topo" src="topo.jpg" width="1080" height="1190" alt="Ofertas Plottwist – as melhores ofertas direto no seu celular">
+  <div class="faixa">🔥 Achadinhos com <b>cupom e frete grátis</b> todos os dias</div>
 
-  <!-- Botões (únicos elementos clicáveis) -->
-  <div class="botoes">
-    <a class="btn btn-whats" href="https://chat.whatsapp.com/IZEM7suRRhm4O8NBkvHG0u" target="_blank" rel="noopener" data-channel="whatsapp">
-      <span class="icone">
-        <svg viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
-          <path d="M16 3.5a12.4 12.4 0 0 0-10.6 18.8L3.5 28.5l6.4-1.8A12.4 12.4 0 1 0 16 3.5z"/>
-          <path fill="#fff" stroke="none" d="M12 9.8c-.4-.9-.8-.9-1.2-.9-.3 0-.6 0-1 .4-.4.4-1.3 1.3-1.3 3.1s1.4 3.6 1.5 3.8c.2.3 2.6 4.1 6.4 5.600 3.100 1.200 3.700.9 4.400.9.700-.1 2.200-.9 2.500-1.800.3-.9.3-1.600.2-1.800-.1-.2-.4-.3-.8-.5s-2.200-1.100-2.500-1.200c-.3-.1-.6-.2-.8.200-.2.400-1 1.200-1.200 1.400-.2.200-.4.300-.8.100-.4-.2-1.600-.6-3-1.900-1.100-1-1.900-2.200-2.100-2.600-.2-.4 0-.6.200-.8l.6-.7c.2-.2.200-.4.400-.6.100-.3.100-.5 0-.7z"/>
-        </svg>
-      </span>
-      <span class="texto">GRUPO DO WHATSAPP</span>
-      <svg class="seta" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7"/></svg>
+  <header class="hero">
+    <div class="marca">
+      <img src="avatar.jpg" alt="" width="52" height="52" fetchpriority="high">
+      <span>Ofertas Plottwist</span>
+    </div>
+    <div class="selo-gratis">100% GRÁTIS</div>
+    <h1>Pare de pagar caro.<br><mark>Receba os achadinhos</mark> direto no seu WhatsApp 📲</h1>
+    <p class="sub">A gente garimpa as melhores promoções da Amazon, Mercado Livre e Shopee e manda só o que vale a pena.</p>
+
+    <a id="cta-principal" class="cta" href="https://chat.whatsapp.com/IZEM7suRRhm4O8NBkvHG0u"
+       target="_blank" rel="noopener" data-channel="whatsapp">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#fff" d="M16 3a13 13 0 0 0-11.1 19.7L3 29l6.5-1.8A13 13 0 1 0 16 3zm0 23.6c-2 0-3.9-.5-5.6-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2l-1 1.2c-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6.3-.5c.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.4c.2.2 2.4 3.6 5.7 5 .8.4 1.4.6 1.9.7.8.3 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg>
+      ENTRAR NO GRUPO GRÁTIS
     </a>
 
-    <a class="btn btn-tele" href="https://t.me/ofertasplottwist" target="_blank" rel="noopener" data-channel="telegram">
-      <span class="icone">
-        <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23" fill="#fff"/><path fill="#1c9cf0" d="M10.800 23.300 34.600 14c1.100-.4 2.100.3 1.700 1.900l-4 19c-.3 1.300-1.100 1.600-2.200 1l-6-4.500-2.900 2.800c-.3.300-.6.600-1.200.600l.4-6.200 11.300-10.200c.5-.4-.1-.7-.8-.3L16.900 27.700l-6-1.900c-1.300-.4-1.300-1.300.3-2.500z"/></svg>
-      </span>
-      <span class="texto">CANAL DO TELEGRAM</span>
-      <svg class="seta" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7"/></svg>
-    </a>
+    <div class="garantias"><span>Grátis</span><span>Só ofertas boas</span><span>Saia quando quiser</span></div>
+    <div class="alt-tele">Prefere Telegram?
+      <a href="https://t.me/ofertasplottwist" target="_blank" rel="noopener" data-channel="telegram">Entrar no canal →</a>
+    </div>
+  </header>
+
+  <div class="lojas" aria-label="Lojas">
+    <span class="loja">Amazon</span>
+    <span class="loja">Mercado Livre</span>
+    <span class="loja">Shopee</span>
+    <span class="loja">+ cupons</span>
   </div>
 
-  <!-- Selos de confiança -->
-  <div class="selos">
-    <div class="selo verde">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="8" cy="8" r="3.2"/><circle cx="17" cy="9" r="2.6"/><path d="M2 19c0-3.300 2.700-5.500 6-5.500s6 2.200 6 5.500zM14.500 14.200c.8-.4 1.600-.6 2.500-.6 2.800 0 5 1.800 5 4.900h-6.200c0-1.700-.5-3.200-1.300-4.300z"/></svg>
-      <div><b>SÓ O ADM</b><span>ENVIA MENSAGENS</span></div>
-    </div>
-    <div class="selo verde">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 4 5.500v6c0 4.800 3.300 9.200 8 10.500 4.700-1.300 8-5.700 8-10.500v-6z"/><path d="m8.500 12 2.500 2.500 4.500-5" fill="none" stroke="#04202a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <div><span>ENTRADA<br>GRATUITA</span></div>
-    </div>
-    <div class="selo verde">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 2 5 13.500h6L9.500 22 19 10h-6.200z"/></svg>
-      <div><span>OFERTAS<br>TODOS OS DIAS</span></div>
-    </div>
-  </div>
-
-  <p class="seguro">
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2h1.500c.8 0 1.500.7 1.500 1.500v9c0 .8-.7 1.500-1.500 1.500h-13c-.8 0-1.500-.7-1.500-1.500v-9C3.500 10.700 4.200 10 5 10zm2 0h6V8a3 3 0 0 0-6 0z"/></svg>
-    <span>Ofertas do Mercado Livre, Amazon e Shopee</span>
-  </p>
-
-  <div class="espia">👀 Espia como é lá dentro</div>
-
-  <!-- Prévia do grupo -->
-  <section class="chat" aria-label="Prévia do grupo de ofertas">
-    <div class="chat-topo">
-      <svg class="voltar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H5M11 5l-7 7 7 7"/></svg>
-      <img src="avatar.jpg" alt="">
-      <div class="nome"><b>🔥 Ofertas Plottwist</b><span>Exemplos de ofertas já enviadas</span></div>
-      <div class="acoes" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="m15 10 6-3v10l-6-3"/></svg>
-        <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.800"/><circle cx="12" cy="12" r="1.800"/><circle cx="12" cy="19" r="1.800"/></svg>
-      </div>
-    </div>
-
-    <div class="mensagens">
-      <article class="msg">
-        <span class="adm">ADM Plottwist</span>
-        <img src="iphone15.jpg" width="538" height="489" alt="Apple iPhone 15 128 GB" loading="lazy">
+  <!-- ===== Achadinhos: troque pelos produtos reais que já passaram no grupo ===== -->
+  <section aria-labelledby="t-achados">
+    <div class="titulo"><h2 id="t-achados">🔥 Achadinhos que já passaram</h2><small>exemplos</small></div>
+    <div class="vitrine">
+      <article class="item">
+        <div class="foto"><img src="ps5.jpg" alt="Console PlayStation 5 Slim Edição Digital 825 GB Branco" loading="lazy" width="728" height="520"></div>
+        <span class="desc">-20%</span>
         <div class="info">
-          <h3>Apple iPhone 15 (128 GB)</h3>
-          <div class="de">de R$ <s>7.309,00</s></div>
-          <div class="por">por R$ <a>3.399,00</a> (-53 OFF) 🔥</div>
-          <span class="cupom">🎟️ Cupom: <em>PAGUEMENOS</em></span>
+          <h3>Console PlayStation 5 Slim Edição Digital 825 GB Branco</h3>
+          <span class="de">R$ 4.299,00</span>
+          <span class="por"><small>R$</small> 3.440,00</span>
+          <span class="tag">🚚 frete grátis</span>
         </div>
-        <span class="hora">12:35</span>
-        <span class="encaminhar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4l7 6-7 6V12c-5 0-8 1.500-10 5 .5-5 3.500-9 10-9z"/></svg></span>
       </article>
-
-      <article class="msg">
-        <span class="adm">ADM Plottwist</span>
-        <img src="nike-air-max.jpg" width="538" height="481" alt="Tênis Nike Air Max Nuaxis Masculino" loading="lazy">
+      <article class="item">
+        <div class="foto"><img src="aparador-mondial.jpg" alt="Aparador de Pelos Super Groom 06 Mondial" loading="lazy" width="729" height="723"></div>
+        <span class="desc">-56%</span>
         <div class="info">
-          <h3>Tênis Nike Air Max Nuaxis Masculino</h3>
-          <div class="de">de R$ <s>599,99</s></div>
-          <div class="por">por R$ <a>289,98</a> (-52 OFF) 🔥</div>
-          <span class="frete">frete grátis</span>
-        </div>
-        <span class="hora">13:30</span>
-        <span class="encaminhar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4l7 6-7 6V12c-5 0-8 1.500-10 5 .5-5 3.500-9 10-9z"/></svg></span>
+          <h3>Aparador de Pelos Super Groom 06 Mondial</h3>
+          <span class="de">R$ 184,90</span>
+          <span class="por"><small>R$</small> 80,48</span>        </div>
       </article>
+    </div>
+    <p class="aviso">Preços e estoque mudam rápido: as ofertas valem no momento em que são enviadas no grupo.</p>
+  </section>
+
+  <section aria-labelledby="t-como">
+    <div class="titulo"><h2 id="t-como">Como funciona</h2></div>
+    <div class="passos">
+      <div class="passo"><i>1</i><div><b>Toque no botão verde</b><span>Abre o WhatsApp direto no grupo.</span></div></div>
+      <div class="passo"><i>2</i><div><b>Toque em "Entrar no grupo"</b><span>Pronto, sem cadastro e sem pagar nada.</span></div></div>
+      <div class="passo"><i>3</i><div><b>Receba os achadinhos</b><span>Ofertas com link e cupom, todos os dias.</span></div></div>
     </div>
   </section>
-  <p class="aviso-precos">Preços e cupons mudam rápido. Os valores acima são da data em que a oferta foi enviada no grupo.</p>
 
-</main>
+  <section class="espia" aria-labelledby="t-dentro">
+    <h2 id="t-dentro">Espia como é lá dentro<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></h2>
+    <p class="intro">Ofertas reais que já foram enviadas no grupo, do jeito que chegam no seu celular.</p>
+
+    <article class="oferta">
+      <div class="img"><img src="iphone15.jpg" alt="Apple iPhone 15 128 GB" loading="lazy"></div>
+      <div class="txt">
+        <h3>Apple iPhone 15 (128 GB)</h3>
+        <span class="de">de <s>R$ 7.309,00</s></span>
+        <span class="por">por <b>R$ 3.399,00</b><small>(-53%)</small></span>
+        <div class="cupom">Cupom: <code>PAGUEMENOS</code></div>
+      </div>
+    </article>
+
+    <article class="oferta">
+      <div class="img"><img src="best-whey.jpg" alt="Best Whey 900 g sabor Toddy" loading="lazy"></div>
+      <div class="txt">
+        <h3>Best Whey (900 g) Toddy</h3>
+        <span class="de">de <s>R$ 228,00</s></span>
+        <span class="por">por <b>R$ 142,90</b><small>(-37%)</small></span>
+        <div class="cupom">Cupom: <code>VOCEMELIMAIS</code></div>
+      </div>
+    </article>
+  </section>
+
+  <section aria-labelledby="t-faq">
+    <div class="titulo"><h2 id="t-faq">Dúvidas</h2></div>
+    <details><summary>É grátis mesmo?</summary><p>Sim. Você não paga nada para entrar nem para receber as ofertas.</p></details>
+    <details><summary>Vou receber muita mensagem?</summary><p>Só os administradores enviam, e só ofertas. Dá para silenciar o grupo e olhar quando quiser.</p></details>
+    <details><summary>Posso sair quando quiser?</summary><p>Pode. É só sair do grupo, a qualquer momento.</p></details>
+    <details><summary>As lojas são confiáveis?</summary><p>Os links levam para a página oficial do produto na Amazon, Mercado Livre ou Shopee. A compra é feita direto na loja.</p></details>
+  </section>
+
+  <div class="final">
+    <h2>O próximo achadinho<br><span>pode ser o seu</span> 🛒</h2>
+    <p>Entre agora e comece a economizar hoje.</p>
+    <a class="cta" href="https://chat.whatsapp.com/IZEM7suRRhm4O8NBkvHG0u" target="_blank" rel="noopener" data-channel="whatsapp">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#fff" d="M16 3a13 13 0 0 0-11.1 19.7L3 29l6.5-1.8A13 13 0 1 0 16 3zm0 23.6c-2 0-3.9-.5-5.6-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.6 10.6 0 1 1 16 26.6z"/></svg>
+      ENTRAR NO GRUPO GRÁTIS
+    </a>
+  </div>
+
+  <footer>Ofertas Plottwist · @plottwistmemesbr<br>Somos afiliados: podemos receber comissão pelas compras feitas pelos links, sem custo extra para você.</footer>
+</div>
+
+<!-- Barra fixa -->
+<div class="fixo" id="fixo" aria-hidden="true">
+  <a class="cta" href="https://chat.whatsapp.com/IZEM7suRRhm4O8NBkvHG0u" target="_blank" rel="noopener" data-channel="whatsapp" tabindex="-1">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#fff" d="M16 3a13 13 0 0 0-11.1 19.7L3 29l6.5-1.8A13 13 0 1 0 16 3zm0 23.6c-2 0-3.9-.5-5.6-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.6 10.6 0 1 1 16 26.6z"/></svg>
+    ENTRAR NO GRUPO GRÁTIS
+  </a>
+</div>
+
+<script>
+  // Mostra a barra fixa só quando o botão principal sai da tela
+  (function () {
+    var alvo = document.getElementById('cta-principal');
+    var fixo = document.getElementById('fixo');
+    if (!('IntersectionObserver' in window) || !alvo) { fixo.classList.add('on'); return; }
+    new IntersectionObserver(function (es) {
+      var visivel = es[0].isIntersecting;
+      fixo.classList.toggle('on', !visivel);
+      fixo.setAttribute('aria-hidden', visivel ? 'true' : 'false');
+      fixo.querySelector('a').tabIndex = visivel ? -1 : 0;
+    }).observe(alvo);
+  })();
+</script>
 </body>
 </html>

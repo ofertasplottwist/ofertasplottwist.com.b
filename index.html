@@ -24,7 +24,7 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 
 // Só o pixel atual (o antigo 1629957334756603 foi removido)
-fbq('init', '3670824509722564');
+['3670824509722564', '1629957334756603'].forEach(function (id) { fbq('init', id); }); // pixel atual + pixel antigo
 fbq('track', 'PageView');
 fbq('track', 'ViewContent', {
   content_name: 'Landing Ofertas Plottwist',
@@ -78,7 +78,9 @@ document.addEventListener('click', function (e) {
 });
 </script>
 <noscript><img height="1" width="1" style="display:none" alt=""
-  src="https://www.facebook.com/tr?id=3670824509722564&ev=PageView&noscript=1"/></noscript>
+  src="https://www.facebook.com/tr?id=3670824509722564&ev=PageView&noscript=1"/>
+  <img height="1" width="1" style="display:none" alt=""
+  src="https://www.facebook.com/tr?id=1629957334756603&ev=PageView&noscript=1"/></noscript>
 <!-- ============ Fim do Pixel ============ -->
 
 <style>

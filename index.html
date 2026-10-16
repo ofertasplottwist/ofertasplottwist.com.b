@@ -237,6 +237,19 @@ document.addEventListener('click', function (e) {
     .selos{width:92%;padding:10px 6px}
   }
   @media (prefers-reduced-motion:reduce){.btn-whats{animation:none}}
+
+  /* Rodapé */
+  .rodape{width:88%;margin:28px auto 0;padding-top:18px;border-top:1px solid rgba(255,255,255,.12);font-size:12.5px;line-height:1.55;color:var(--suave);text-align:center}
+  .rodape p{margin:0 0 8px}
+  .rodape b{color:var(--texto);font-weight:700}
+  .rodape a{color:var(--suave);text-decoration:underline}
+  .rp-aviso{margin:14px 0;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);text-align:left}
+  .rp-aviso p:last-child{margin-bottom:0}
+  .rp-privacidade{margin:4px 0 12px;text-align:left}
+  .rp-privacidade summary{cursor:pointer;text-align:center;color:var(--texto);font-weight:600;text-decoration:underline;list-style:none;padding:6px 0}
+  .rp-privacidade summary::-webkit-details-marker{display:none}
+  .rp-privacidade p{margin-top:8px}
+  .rp-copy{font-size:11.5px;opacity:.8}
 </style>
 </head>
 <body>
@@ -332,6 +345,28 @@ document.addEventListener('click', function (e) {
   </section>
   <p class="aviso-precos">Preços e cupons mudam rápido. Os valores acima são da data em que a oferta foi enviada no grupo.</p>
 
+
+  <!-- Rodapé: quem somos, contato, aviso de afiliado e privacidade -->
+  <footer class="rodape">
+    <p class="rp-marca"><b>Ofertas Plottwist</b> · responsável: Ricardo Calleja</p>
+    <p class="rp-contato">Contato: <a href="mailto:ofertasplottwist@gmail.com">ofertasplottwist@gmail.com</a></p>
+
+    <div class="rp-aviso">
+      <p><b>Somos afiliados.</b> Divulgamos ofertas de lojas como Mercado Livre, Amazon e Shopee e podemos receber uma comissão quando você compra pelos nossos links, <b>sem nenhum custo extra para você</b>.</p>
+      <p>Não somos essas lojas nem temos vínculo oficial com elas. Preço, estoque, entrega e garantia são de responsabilidade de cada loja.</p>
+      <p><b>Nunca pedimos pagamento, senha, Pix ou dados bancários.</b> A entrada no grupo e no canal é gratuita.</p>
+    </div>
+
+    <details class="rp-privacidade">
+      <summary>Política de privacidade</summary>
+      <p>Este site não pede nem guarda seu nome, telefone ou e-mail.</p>
+      <p>Usamos o pixel da Meta (Facebook e Instagram) e cookies para contar visitas e cliques nos botões e medir o resultado dos nossos anúncios. Essas ferramentas podem registrar dados técnicos, como endereço IP, tipo de aparelho e navegador.</p>
+      <p>Não vendemos seus dados. Você pode bloquear ou apagar cookies nas configurações do seu navegador.</p>
+      <p>Ao entrar no grupo do WhatsApp ou no canal do Telegram, valem também as regras de privacidade desses aplicativos. Dúvidas ou pedidos sobre seus dados (LGPD): pelo e-mail acima.</p>
+    </details>
+
+    <p class="rp-copy">© 2026 Ofertas Plottwist</p>
+  </footer>
 </main>
 </body>
 </html>

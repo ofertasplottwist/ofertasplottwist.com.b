@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title></title>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ofertas Plottwist">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://ofertasplottwist.com.br/whats">
+<meta property="og:image" content="https://ofertasplottwist.com.br/whatsapp/convite.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1080">
+<meta property="og:image:height" content="1080">
+<style>html,body{margin:0;height:100%;background:#FFC400;font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center;text-align:center}a{color:#1b1b1f;font-weight:700;font-size:18px}</style>
+<script>
+var GRUPO = 'https://chat.whatsapp.com/IZEM7suRRhm4O8NBkvHG0u';
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+['3670824509722564','1629957334756603'].forEach(function(id){fbq('init',id);});
+fbq('track','PageView');
+// Lead (origem: link curto /whatsapp) + API de Conversões, e manda direto para o grupo
+var eventId='lead_whatsapp_'+Date.now()+'_'+Math.random().toString(36).slice(2,8);
+fbq('track','Lead',{content_name:'Entrada no grupo whatsapp',content_category:'whatsapp',channel:'whatsapp',origem:'link_curto_whats'},{eventID:eventId});
+function ck(n){var m=document.cookie.match(new RegExp('(?:^|; )'+n+'=([^;]*)'));return m?decodeURIComponent(m[1]):null;}
+try{fetch('https://capi-plottwist.rmc-calleja.workers.dev',{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'text/plain;charset=UTF-8'},body:JSON.stringify({event_id:eventId,channel:'whatsapp',event_source_url:location.href,fbp:ck('_fbp'),fbc:ck('_fbc')})});}catch(e){}
+setTimeout(function(){location.replace(GRUPO);},350);
+</script>
+</head>
+<body>
+<a href="https://chat.whatsapp.com/IZEM7suRRhm4O8NBkvHG0u">Abrindo o grupo no WhatsApp…<br>Se não abrir, toque aqui.</a>
+</body>
+</html>
